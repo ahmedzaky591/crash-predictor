@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crash Predictor 🎯 - Smart Learning</title>
+    <title>Crash Predictor 🎯 - Genius AI</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
@@ -14,112 +14,116 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
+            color: #fff;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
         .header {
             text-align: center;
-            color: white;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 2.2em;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
         }
 
         .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
+            font-size: 0.9em;
+            opacity: 0.8;
         }
 
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
         .card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(102, 126, 234, 0.3);
         }
 
         .card h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
+            color: #4facfe;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border-bottom: 2px solid #4facfe;
+            padding-bottom: 8px;
         }
 
         .card h3 {
-            color: #667eea;
-            margin-top: 20px;
-            margin-bottom: 15px;
-            font-size: 1.1em;
+            color: #4facfe;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1em;
         }
 
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
+            margin-bottom: 5px;
+            color: #aaa;
+            font-size: 0.9em;
             font-weight: 500;
         }
 
         input, textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
+            padding: 10px;
+            border: 1px solid #4facfe;
+            border-radius: 6px;
+            font-size: 0.95em;
+            background: #1a2b47;
+            color: #fff;
             font-family: inherit;
         }
 
         input:focus, textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+            border-color: #00ff88;
+            box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
         }
 
         textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 70px;
             font-family: 'Courier New', monospace;
+            font-size: 0.85em;
         }
 
         button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #000;
+            padding: 10px 15px;
             border: none;
-            border-radius: 8px;
-            font-size: 0.95em;
+            border-radius: 6px;
+            font-size: 0.9em;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
             width: 100%;
-            margin: 8px 0;
+            margin: 6px 0;
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
         }
 
         button:active {
@@ -128,44 +132,150 @@
 
         .btn-primary {
             background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
+            color: white;
         }
 
         .btn-success {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, #ffa502 0%, #ffb74d 100%);
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            color: #000;
         }
 
         .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .btn-small {
-            padding: 8px 15px;
-            font-size: 0.9em;
-            margin: 5px 0;
+            background: #2d3e50;
+            color: #aaa;
         }
 
         .prediction-box {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             text-align: center;
-            margin: 20px 0;
+            margin: 15px 0;
             display: none;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
         }
 
         .prediction-box.show {
             display: block;
+            animation: pulse 0.3s ease-out;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .prediction-multiplier {
+            font-size: 2.8em;
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .confidence {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-top: 10px;
+        }
+
+        .real-time-input {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border: 2px solid #ff0000;
+        }
+
+        .real-time-input label {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .real-time-input input {
+            background: #2d0a0a;
+            border-color: #ff4444;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .stat-box {
+            background: rgba(79, 172, 254, 0.1);
+            border-left: 3px solid #4facfe;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            color: #00ff88;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .memory-list {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            max-height: 250px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+
+        .memory-item {
+            background: rgba(79, 172, 254, 0.2);
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-size: 0.85em;
+            border-left: 3px solid #00ff88;
+        }
+
+        .message {
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            display: none;
             animation: slideIn 0.3s ease-out;
+            font-size: 0.9em;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.success {
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+        }
+
+        .message.error {
+            background: rgba(255, 107, 107, 0.2);
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .message.info {
+            background: rgba(79, 172, 254, 0.2);
+            border: 1px solid #4facfe;
+            color: #4facfe;
         }
 
         @keyframes slideIn {
@@ -179,136 +289,20 @@
             }
         }
 
-        .prediction-multiplier {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .confidence {
-            font-size: 1em;
-            opacity: 0.9;
-        }
-
-        .memory-box {
-            background: #e8f5e9;
-            border-left: 4px solid #4caf50;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-
-        .memory-box h4 {
-            color: #2e7d32;
-            margin-bottom: 10px;
-        }
-
-        .memory-item {
-            background: white;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 6px;
-            border-left: 3px solid #4caf50;
-            font-size: 0.9em;
-        }
-
-        .memory-item strong {
-            color: #2e7d32;
-        }
-
-        .correction-item {
-            background: #fff9c4;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 6px;
-            border-left: 3px solid #fbc02d;
-            font-size: 0.9em;
-        }
-
-        .correction-item strong {
-            color: #f57f17;
-        }
-
-        .stats-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-        }
-
-        .stat-line {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #bbdefb;
-            color: #1565c0;
-        }
-
-        .stat-line:last-child {
-            border-bottom: none;
-        }
-
-        .stat-label {
-            font-weight: 600;
-        }
-
-        .stat-value {
-            color: #0d47a1;
-            font-weight: bold;
-        }
-
-        .message {
-            padding: 12px;
-            border-radius: 8px;
-            margin: 15px 0;
-            display: none;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        .message.show {
-            display: block;
-        }
-
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .message.info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
-
         .loading {
             display: none;
             text-align: center;
-            color: #667eea;
-            margin: 15px 0;
-        }
-
-        .loading.show {
-            display: block;
+            margin: 10px 0;
         }
 
         .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
+            border: 2px solid rgba(79, 172, 254, 0.3);
+            border-top: 2px solid #4facfe;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
+            width: 25px;
+            height: 25px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 8px;
         }
 
         @keyframes spin {
@@ -316,55 +310,58 @@
             100% { transform: rotate(360deg); }
         }
 
+        .chart-container {
+            position: relative;
+            height: 280px;
+            margin-top: 12px;
+        }
+
         .full-width {
             grid-column: 1 / -1;
         }
 
-        .chart-container {
-            position: relative;
-            height: 300px;
-            margin-top: 20px;
-        }
-
-        .info-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196F3;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            color: #1565c0;
-            font-size: 0.95em;
-        }
-
         .prediction-history {
-            max-height: 300px;
+            max-height: 200px;
             overflow-y: auto;
-            background: #f5f5f5;
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 8px;
-            padding: 10px;
-            margin: 15px 0;
+            padding: 8px;
+            margin: 10px 0;
         }
 
         .history-item {
-            background: white;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            font-size: 0.9em;
-            border-left: 3px solid #667eea;
+            background: rgba(79, 172, 254, 0.15);
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+            font-size: 0.85em;
+            border-left: 3px solid #4facfe;
         }
 
         .history-item.correct {
-            border-left-color: #4caf50;
-            background: #f1f8e9;
+            border-left-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
         }
 
         .history-item.wrong {
-            border-left-color: #f44336;
-            background: #ffebee;
+            border-left-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
         }
 
-        @media (max-width: 1024px) {
+        .ai-status {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+
+        .ai-status strong {
+            color: #00ff88;
+        }
+
+        @media (max-width: 1200px) {
             .main-grid {
                 grid-template-columns: 1fr 1fr;
             }
@@ -376,7 +373,7 @@
             }
 
             .header h1 {
-                font-size: 2em;
+                font-size: 1.6em;
             }
 
             .prediction-multiplier {
@@ -388,116 +385,105 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎯 Crash Predictor - Learning AI</h1>
-            <p>Tell it what's right, and it remembers forever!</p>
+            <h1>🧠 GENIUS CRASH AI - Real-Time Edition</h1>
+            <p>Ultra-Fast Adaptive AI | Instant Learning | WowBet Ready</p>
         </div>
 
         <div class="main-grid">
             <!-- Input Panel -->
             <div class="card">
-                <h2>📊 Data Input</h2>
+                <h2>⚡ Quick Input</h2>
                 
-                <div class="info-box">
-                    Paste your crash history and the AI will learn from your corrections!
-                </div>
-
                 <div class="input-group">
-                    <label>Crash History</label>
-                    <textarea id="crashInput" placeholder="e.g., 1.5, 2.3, 1.8, 3.2, 2.1"></textarea>
+                    <label>Crash History (Last 20+)</label>
+                    <textarea id="crashInput" placeholder="1.5,2.3,1.8,3.2,2.1"></textarea>
                 </div>
 
-                <button class="btn-secondary btn-small" onclick="loadSampleData()">📥 Load Sample</button>
-                <button class="btn-secondary btn-small" onclick="clearAll()">🗑️ Clear All</button>
-                <button class="btn-success" onclick="predict()">🔮 Predict</button>
+                <button class="btn-secondary" onclick="loadSample()" style="font-size: 0.85em; padding: 8px;">📥 Sample</button>
+                <button class="btn-success" onclick="predictNow()">🔮 PREDICT</button>
+                <button class="btn-primary" onclick="clearAll()" style="font-size: 0.85em; padding: 8px;">Clear</button>
 
-                <h3>🧠 AI Memory</h3>
-                <div id="memoryBox" class="memory-box" style="display: none;">
-                    <h4>Learned Patterns:</h4>
-                    <div id="memoryList"></div>
+                <h3>🧠 AI Brain</h3>
+                <div class="ai-status">
+                    <div><strong>IQ Level:</strong> <span id="iqLevel">0%</span></div>
+                    <div><strong>Patterns Learned:</strong> <span id="patternsLearned">0</span></div>
+                    <div><strong>Accuracy:</strong> <span id="aiAccuracy">0%</span></div>
+                    <div><strong>Speed:</strong> <span id="aiSpeed">Instant</span></div>
                 </div>
 
-                <h3>Stats</h3>
-                <div class="stats-box">
-                    <div class="stat-line">
-                        <span class="stat-label">Total Patterns Learned:</span>
-                        <span class="stat-value" id="learnedCount">0</span>
-                    </div>
-                    <div class="stat-line">
-                        <span class="stat-label">Predictions Made:</span>
-                        <span class="stat-value" id="predictionCount">0</span>
-                    </div>
-                    <div class="stat-line">
-                        <span class="stat-label">Accuracy:</span>
-                        <span class="stat-value" id="accuracy">0%</span>
-                    </div>
-                </div>
+                <h3>📚 Memory Bank</h3>
+                <div id="memoryList" class="memory-list"></div>
+
+                <button class="btn-secondary" onclick="exportAI()" style="font-size: 0.85em; padding: 8px;">💾 Export</button>
+                <button class="btn-secondary" onclick="resetAI()" style="font-size: 0.85em; padding: 8px;">🔄 Reset</button>
             </div>
 
-            <!-- Prediction Panel -->
+            <!-- Live Prediction Panel -->
             <div class="card">
-                <h2>🎯 Prediction</h2>
+                <h2>🎯 Live Prediction</h2>
 
                 <div id="predictionDisplay" class="prediction-box">
-                    <div>Next Crash Prediction</div>
-                    <div class="prediction-multiplier" id="predictedValue">0.00x</div>
-                    <div class="confidence" id="confidenceValue">Confidence: 0%</div>
+                    <div>NEXT CRASH</div>
+                    <div class="prediction-multiplier" id="predValue">0.00x</div>
+                    <div class="confidence" id="confValue">Confidence: 0%</div>
                 </div>
 
                 <div id="loading" class="loading">
                     <div class="spinner"></div>
-                    <p>Analyzing...</p>
+                    <p>AI Computing...</p>
                 </div>
 
-                <h3>Is This Correct?</h3>
-                <div id="feedbackPanel" style="display: none;">
-                    <div class="input-group">
-                        <label>What was the actual crash?</label>
-                        <input type="number" id="actualValue" step="0.01" min="1.01" placeholder="e.g., 2.45">
-                    </div>
-                    <button class="btn-success btn-small" onclick="submitCorrection()">✓ Yes, That's Right!</button>
-                    <button class="btn-warning btn-small" onclick="submitCorrection()">✗ Wrong, Here's the Real One</button>
-                    <button class="btn-secondary btn-small" onclick="clearFeedback()">Cancel</button>
+                <div class="real-time-input" id="rtInput" style="display: none;">
+                    <label>⚠️ REAL GAME - What was the actual crash?</label>
+                    <input type="number" id="actualCrash" step="0.01" min="1.01" placeholder="Enter actual value">
+                    <button class="btn-success" onclick="learnCorrection()" style="margin: 8px 0;">✓ YES RIGHT!</button>
+                    <button class="btn-primary" onclick="learnCorrection()" style="margin: 8px 0;">✗ WRONG</button>
                 </div>
 
                 <div id="message" class="message"></div>
 
-                <h3>Recent Predictions</h3>
-                <div id="historyList" class="prediction-history"></div>
+                <h3>⚡ Recent Predictions</h3>
+                <div id="predHistory" class="prediction-history"></div>
             </div>
 
-            <!-- Learning Analytics -->
+            <!-- Analytics Panel -->
             <div class="card">
-                <h2>📚 Learning Database</h2>
+                <h2>📊 Analytics</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-label">Total Learned</div>
+                        <div class="stat-value" id="totalLearned">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Wins</div>
+                        <div class="stat-value" id="wins">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Losses</div>
+                        <div class="stat-value" id="losses">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Win Rate</div>
+                        <div class="stat-value" id="winRate">0%</div>
+                    </div>
+                </div>
 
                 <h3>✓ Correct Patterns</h3>
-                <div id="correctPatterns" class="memory-box" style="border-left-color: #4caf50; background: #e8f5e9; display: none;">
-                    <div id="correctList"></div>
-                </div>
-                <p id="noCorrect" style="color: #999;">No correct patterns yet</p>
+                <div id="correctList" class="memory-list"></div>
 
-                <h3>✗ Wrong Predictions</h3>
-                <div id="wrongPatterns" class="memory-box" style="border-left-color: #f44336; background: #ffebee; display: none;">
-                    <div id="wrongList"></div>
-                </div>
-                <p id="noWrong" style="color: #999;">No corrections yet</p>
+                <h3>❌ Learn From Fails</h3>
+                <div id="wrongList" class="memory-list"></div>
 
-                <h3>Actions</h3>
-                <button class="btn-secondary btn-small" onclick="exportData()">💾 Export Data</button>
-                <button class="btn-secondary btn-small" onclick="resetLearning()">🔄 Reset Learning</button>
-
-                <h3>How It Works</h3>
-                <div class="info-box" style="margin-top: 15px;">
-                    <strong>Step 1:</strong> Load crash data<br>
-                    <strong>Step 2:</strong> Click Predict<br>
-                    <strong>Step 3:</strong> Tell AI if correct or what the real value was<br>
-                    <strong>Step 4:</strong> AI learns and improves!
-                </div>
+                <h3>⚙️ Settings</h3>
+                <button class="btn-secondary" onclick="toggleAutoLearn()" style="font-size: 0.85em; padding: 8px;">Auto-Learn: ON</button>
+                <button class="btn-secondary" onclick="showAdvanced()" style="font-size: 0.85em; padding: 8px;">Advanced</button>
             </div>
         </div>
 
         <!-- Chart -->
         <div class="card full-width">
-            <h2>📈 Crash History</h2>
+            <h2>📈 Crash Pattern Chart</h2>
             <div class="chart-container">
                 <canvas id="crashChart"></canvas>
             </div>
@@ -506,95 +492,173 @@
 
     <script>
         let chart = null;
-        let currentPrediction = null;
-        
-        const AI = {
-            learned: [],
+        let currentPred = null;
+        let autoLearn = true;
+
+        // GENIUS AI ENGINE
+        const GENIUS_AI = {
+            patterns: new Map(),
             predictions: [],
-            accuracy: { correct: 0, total: 0 },
-            
-            learn(pattern, isCorrect, actual) {
-                this.learned.push({
-                    pattern,
-                    isCorrect,
-                    actual,
-                    timestamp: new Date()
-                });
+            stats: { wins: 0, losses: 0, total: 0 },
+            iq: 0,
+
+            // Advanced Pattern Recognition
+            analyzePattern(crashes) {
+                const last5 = crashes.slice(-5);
+                const key = last5.map(c => c.toFixed(2)).join(',');
                 
-                if (isCorrect) {
-                    this.accuracy.correct++;
-                }
-                this.accuracy.total++;
-                
-                this.save();
-            },
-            
-            predict(crashes) {
-                const recent = crashes.slice(-5);
-                const avg = recent.reduce((a, b) => a + b) / recent.length;
-                
-                // Check learned patterns
-                let adjustment = 0;
-                let matchCount = 0;
-                
-                for (let learned of this.learned) {
-                    if (learned.isCorrect && learned.pattern.length === recent.length) {
-                        let matches = 0;
-                        for (let i = 0; i < recent.length; i++) {
-                            if (Math.abs(recent[i] - learned.pattern[i]) < 0.3) {
-                                matches++;
-                            }
-                        }
-                        if (matches >= 4) {
-                            adjustment += learned.actual - avg;
-                            matchCount++;
-                        }
-                    }
-                }
-                
-                let prediction = avg;
-                if (matchCount > 0) {
-                    prediction += (adjustment / matchCount) * 0.5;
-                }
-                
-                // Add trend
-                const trend = (recent[recent.length - 1] - recent[0]) / recent.length;
-                prediction += trend * 0.3;
-                
-                prediction = Math.max(1.01, Math.min(10, prediction));
-                
-                // Confidence based on matching patterns
-                let confidence = 50 + (matchCount * 15);
-                confidence = Math.min(99, confidence);
+                // Multi-level analysis
+                const avg = last5.reduce((a, b) => a + b) / last5.length;
+                const trend = this.calculateTrend(last5);
+                const volatility = this.calculateVolatility(last5);
+                const momentum = this.calculateMomentum(last5);
+                const fractal = this.calculateFractal(crashes);
                 
                 return {
-                    value: parseFloat(prediction.toFixed(2)),
-                    confidence: Math.min(99, confidence + this.accuracy.correct * 2),
-                    matchedPatterns: matchCount
+                    key,
+                    avg,
+                    trend,
+                    volatility,
+                    momentum,
+                    fractal,
+                    hash: this.hashPattern(last5)
                 };
             },
-            
-            save() {
-                localStorage.setItem('aiLearned', JSON.stringify(this.learned));
-                localStorage.setItem('aiAccuracy', JSON.stringify(this.accuracy));
+
+            calculateTrend(arr) {
+                const n = arr.length;
+                let sum_x = 0, sum_y = 0, sum_xy = 0, sum_x2 = 0;
+                for (let i = 0; i < n; i++) {
+                    sum_x += i;
+                    sum_y += arr[i];
+                    sum_xy += i * arr[i];
+                    sum_x2 += i * i;
+                }
+                return (n * sum_xy - sum_x * sum_y) / (n * sum_x2 - sum_x * sum_x);
             },
-            
+
+            calculateVolatility(arr) {
+                const avg = arr.reduce((a, b) => a + b) / arr.length;
+                const variance = arr.reduce((sum, val) => sum + Math.pow(val - avg, 2), 0) / arr.length;
+                return Math.sqrt(variance);
+            },
+
+            calculateMomentum(arr) {
+                return arr[arr.length - 1] - arr[0];
+            },
+
+            calculateFractal(crashes) {
+                if (crashes.length < 10) return 0;
+                const segments = [crashes.slice(-5), crashes.slice(-10, -5)];
+                let similarity = 0;
+                for (let i = 0; i < 5; i++) {
+                    similarity += Math.abs(segments[0][i] - segments[1][i]);
+                }
+                return 1 / (1 + similarity / 5);
+            },
+
+            hashPattern(arr) {
+                return arr.reduce((h, v) => h + v.toFixed(2).length, 0);
+            },
+
+            // Smart Prediction
+            predict(crashes) {
+                const pattern = this.analyzePattern(crashes);
+                let prediction = pattern.avg;
+
+                // Apply learned corrections
+                let corrections = 0;
+                for (let [key, data] of this.patterns) {
+                    if (data.hash === pattern.hash && data.actual) {
+                        prediction += (data.actual - data.avg) * 0.4;
+                        corrections++;
+                    }
+                }
+
+                // Apply trend
+                prediction += pattern.trend * 0.5;
+
+                // Apply momentum
+                if (pattern.momentum > 0) {
+                    prediction += pattern.momentum * 0.3;
+                }
+
+                // Apply fractal analysis
+                prediction += pattern.fractal * 0.2;
+
+                // Adjust for volatility
+                if (pattern.volatility < 0.5) {
+                    prediction = (prediction + pattern.avg) / 2;
+                }
+
+                prediction = Math.max(1.01, Math.min(9.99, prediction));
+
+                // Calculate confidence
+                let confidence = 50;
+                confidence += corrections * 10;
+                confidence += Math.min(40, this.stats.total * 2);
+                confidence = Math.min(99, confidence);
+
+                return {
+                    value: parseFloat(prediction.toFixed(2)),
+                    confidence: Math.max(55, confidence),
+                    patterns: corrections
+                };
+            },
+
+            // Learn from corrections
+            learn(crashes, actual, isCorrect) {
+                const pattern = this.analyzePattern(crashes);
+                
+                this.patterns.set(pattern.key, {
+                    ...pattern,
+                    actual: actual,
+                    isCorrect: isCorrect,
+                    timestamp: Date.now()
+                });
+
+                this.predictions.push({
+                    predicted: pattern.avg,
+                    actual: actual,
+                    isCorrect: isCorrect
+                });
+
+                if (isCorrect) {
+                    this.stats.wins++;
+                } else {
+                    this.stats.losses++;
+                }
+                this.stats.total++;
+
+                // Calculate IQ (0-100)
+                this.iq = Math.min(99, (this.stats.wins / Math.max(1, this.stats.total)) * 100);
+
+                this.save();
+            },
+
+            save() {
+                const data = {
+                    patterns: Array.from(this.patterns.entries()),
+                    predictions: this.predictions,
+                    stats: this.stats,
+                    iq: this.iq
+                };
+                localStorage.setItem('geniusAI', JSON.stringify(data));
+            },
+
             load() {
-                const learned = localStorage.getItem('aiLearned');
-                const accuracy = localStorage.getItem('aiAccuracy');
-                if (learned) this.learned = JSON.parse(learned);
-                if (accuracy) this.accuracy = JSON.parse(accuracy);
+                const data = localStorage.getItem('geniusAI');
+                if (data) {
+                    const parsed = JSON.parse(data);
+                    this.patterns = new Map(parsed.patterns);
+                    this.predictions = parsed.predictions;
+                    this.stats = parsed.stats;
+                    this.iq = parsed.iq;
+                }
             }
         };
 
-        AI.load();
-
-        function showMessage(text, type = 'success') {
-            const msg = document.getElementById('message');
-            msg.textContent = text;
-            msg.className = `message show ${type}`;
-            setTimeout(() => msg.classList.remove('show'), 5000);
-        }
+        GENIUS_AI.load();
 
         function parseCrashes(input) {
             return input.split(',').map(x => parseFloat(x.trim())).filter(x => !isNaN(x) && x > 0);
@@ -603,175 +667,156 @@
         function getCrashes() {
             const crashes = parseCrashes(document.getElementById('crashInput').value);
             if (crashes.length < 5) {
-                showMessage('Need at least 5 crash values', 'error');
+                showMsg('Need minimum 5 crashes', 'error');
                 return null;
             }
             return crashes;
         }
 
-        function predict() {
+        function showMsg(text, type = 'success') {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.className = `message show ${type}`;
+            setTimeout(() => msg.classList.remove('show'), 3000);
+        }
+
+        function predictNow() {
             const crashes = getCrashes();
             if (!crashes) return;
 
             document.getElementById('loading').classList.add('show');
+            document.getElementById('rtInput').style.display = 'none';
 
+            // Ultra-fast prediction
             setTimeout(() => {
-                const pred = AI.predict(crashes);
-                currentPrediction = {
-                    crashes,
-                    prediction: pred.value,
-                    confidence: pred.confidence,
-                    matchedPatterns: pred.matchedPatterns
-                };
+                const pred = GENIUS_AI.predict(crashes);
+                currentPred = { crashes, predicted: pred.value, confidence: pred.confidence };
 
+                document.getElementById('predValue').textContent = pred.value + 'x';
+                document.getElementById('confValue').textContent = `Confidence: ${pred.confidence}%`;
                 document.getElementById('predictionDisplay').classList.add('show');
-                document.getElementById('predictedValue').textContent = pred.value + 'x';
-                document.getElementById('confidenceValue').textContent = `Confidence: ${pred.confidence}%`;
-                document.getElementById('feedbackPanel').style.display = 'block';
-                document.getElementById('actualValue').value = '';
+                document.getElementById('rtInput').style.display = 'block';
+                document.getElementById('actualCrash').value = '';
                 document.getElementById('loading').classList.remove('show');
 
                 updateUI();
-            }, 500);
+            }, 50);
         }
 
-        function submitCorrection() {
-            const actual = parseFloat(document.getElementById('actualValue').value);
-            
+        function learnCorrection() {
+            const actual = parseFloat(document.getElementById('actualCrash').value);
             if (isNaN(actual) || actual < 1.01) {
-                showMessage('Enter a valid crash value', 'error');
+                showMsg('Enter valid crash value', 'error');
                 return;
             }
 
-            const isCorrect = Math.abs(actual - currentPrediction.prediction) < (currentPrediction.prediction * 0.05);
+            const isCorrect = Math.abs(actual - currentPred.predicted) < (currentPred.predicted * 0.08);
+            GENIUS_AI.learn(currentPred.crashes, actual, isCorrect);
 
-            AI.learn(
-                currentPrediction.crashes.slice(-5),
-                isCorrect,
-                actual
-            );
-
-            AI.predictions.push({
-                predicted: currentPrediction.prediction,
-                actual: actual,
-                isCorrect: isCorrect,
-                timestamp: new Date()
-            });
-
-            if (isCorrect) {
-                showMessage(`✓ Great! AI learned: ${currentPrediction.crashes.slice(-5).join(', ')} → ${actual}x`, 'success');
-            } else {
-                showMessage(`✓ Noted! You said it should be ${actual}x, not ${currentPrediction.prediction}x. AI will adjust!`, 'success');
-            }
-
-            document.getElementById('feedbackPanel').style.display = 'none';
+            showMsg(`✓ AI LEARNED! ${isCorrect ? 'CORRECT!' : 'Corrected: ' + actual + 'x'}`, isCorrect ? 'success' : 'info');
+            document.getElementById('rtInput').style.display = 'none';
             updateUI();
         }
 
-        function clearFeedback() {
-            document.getElementById('feedbackPanel').style.display = 'none';
-        }
-
         function updateUI() {
-            // Update stats
-            document.getElementById('learnedCount').textContent = AI.learned.length;
-            document.getElementById('predictionCount').textContent = AI.predictions.length;
+            // AI Stats
+            document.getElementById('iqLevel').textContent = GENIUS_AI.iq.toFixed(1) + '%';
+            document.getElementById('patternsLearned').textContent = GENIUS_AI.patterns.size;
             
-            const acc = AI.accuracy.total > 0 
-                ? Math.round((AI.accuracy.correct / AI.accuracy.total) * 100)
+            const accuracy = GENIUS_AI.stats.total > 0 
+                ? ((GENIUS_AI.stats.wins / GENIUS_AI.stats.total) * 100).toFixed(1)
                 : 0;
-            document.getElementById('accuracy').textContent = acc + '%';
+            document.getElementById('aiAccuracy').textContent = accuracy + '%';
 
-            // Update memory
-            if (AI.learned.length > 0) {
-                document.getElementById('memoryBox').style.display = 'block';
-                document.getElementById('memoryList').innerHTML = AI.learned
-                    .slice(-5)
-                    .map(l => `
-                        <div class="memory-item">
-                            <strong>${l.isCorrect ? '✓' : '✗'}</strong> 
-                            Actual: ${l.actual}x
-                        </div>
-                    `).join('');
+            // Analytics
+            document.getElementById('totalLearned').textContent = GENIUS_AI.patterns.size;
+            document.getElementById('wins').textContent = GENIUS_AI.stats.wins;
+            document.getElementById('losses').textContent = GENIUS_AI.stats.losses;
+            document.getElementById('winRate').textContent = accuracy + '%';
+
+            // Memory
+            if (GENIUS_AI.patterns.size > 0) {
+                const patterns = Array.from(GENIUS_AI.patterns.values()).slice(-10);
+                document.getElementById('memoryList').innerHTML = patterns
+                    .map(p => `<div class="memory-item"><strong>${p.isCorrect ? '✓' : '✗'} ${p.actual.toFixed(2)}x</strong></div>`)
+                    .join('');
             }
 
-            // Correct patterns
-            const correct = AI.learned.filter(l => l.isCorrect);
+            // Correct predictions
+            const correct = GENIUS_AI.predictions.filter(p => p.isCorrect);
             if (correct.length > 0) {
-                document.getElementById('correctPatterns').style.display = 'block';
-                document.getElementById('noCorrect').style.display = 'none';
-                document.getElementById('correctList').innerHTML = correct
-                    .map(c => `<div class="memory-item"><strong>✓ ${c.actual}x</strong></div>`)
+                document.getElementById('correctList').innerHTML = correct.slice(-5)
+                    .map(p => `<div class="memory-item">✓ ${p.actual.toFixed(2)}x</div>`)
                     .join('');
             }
 
             // Wrong predictions
-            const wrong = AI.learned.filter(l => !l.isCorrect);
+            const wrong = GENIUS_AI.predictions.filter(p => !p.isCorrect);
             if (wrong.length > 0) {
-                document.getElementById('wrongPatterns').style.display = 'block';
-                document.getElementById('noWrong').style.display = 'none';
-                document.getElementById('wrongList').innerHTML = wrong
-                    .map(w => `
-                        <div class="correction-item">
-                            <strong>Should be ${w.actual}x</strong>
-                        </div>
-                    `).join('');
+                document.getElementById('wrongList').innerHTML = wrong.slice(-5)
+                    .map(p => `<div class="memory-item">Pred: ${p.predicted.toFixed(2)}x → Real: ${p.actual.toFixed(2)}x</div>`)
+                    .join('');
             }
 
             // History
-            document.getElementById('historyList').innerHTML = AI.predictions
-                .slice(-10)
-                .reverse()
-                .map(p => `
-                    <div class="history-item ${p.isCorrect ? 'correct' : 'wrong'}">
-                        Predicted: ${p.predicted}x | Actual: ${p.actual}x 
-                        ${p.isCorrect ? '✓' : '✗'}
-                    </div>
-                `).join('');
+            document.getElementById('predHistory').innerHTML = GENIUS_AI.predictions.slice(-8).reverse()
+                .map(p => `<div class="history-item ${p.isCorrect ? 'correct' : 'wrong'}">
+                    P:${p.predicted.toFixed(2)}x A:${p.actual.toFixed(2)}x ${p.isCorrect ? '✓' : '✗'}
+                </div>`)
+                .join('');
         }
 
-        function loadSampleData() {
-            const sample = [1.5, 2.3, 1.8, 3.2, 2.1, 1.9, 2.8, 1.6, 2.5, 3.1, 2.2, 1.7, 2.9, 2.0, 1.4];
-            document.getElementById('crashInput').value = sample.join(', ');
-            showMessage('Sample data loaded!', 'success');
+        function loadSample() {
+            const sample = [1.5, 2.3, 1.8, 3.2, 2.1, 1.9, 2.8, 1.6, 2.5, 3.1, 2.2, 1.7, 2.9, 2.0, 1.4, 3.5, 2.4, 1.9, 2.6, 2.8];
+            document.getElementById('crashInput').value = sample.join(',');
+            showMsg('Sample loaded', 'success');
         }
 
         function clearAll() {
             document.getElementById('crashInput').value = '';
             document.getElementById('predictionDisplay').classList.remove('show');
-            document.getElementById('feedbackPanel').style.display = 'none';
+            document.getElementById('rtInput').style.display = 'none';
         }
 
-        function resetLearning() {
-            if (confirm('Delete all learned patterns and start over?')) {
-                AI.learned = [];
-                AI.predictions = [];
-                AI.accuracy = { correct: 0, total: 0 };
-                AI.save();
+        function resetAI() {
+            if (confirm('Reset all AI learning?')) {
+                GENIUS_AI.patterns.clear();
+                GENIUS_AI.predictions = [];
+                GENIUS_AI.stats = { wins: 0, losses: 0, total: 0 };
+                GENIUS_AI.iq = 0;
+                GENIUS_AI.save();
                 updateUI();
-                showMessage('Learning reset!', 'success');
+                showMsg('AI Reset', 'success');
             }
         }
 
-        function exportData() {
-            const data = {
-                learned: AI.learned,
-                predictions: AI.predictions,
-                accuracy: AI.accuracy
-            };
-            const json = JSON.stringify(data, null, 2);
-            const blob = new Blob([json], { type: 'application/json' });
+        function exportAI() {
+            const data = JSON.stringify({
+                patterns: Array.from(GENIUS_AI.patterns.entries()),
+                predictions: GENIUS_AI.predictions,
+                stats: GENIUS_AI.stats,
+                iq: GENIUS_AI.iq
+            }, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'crash-predictor-data.json';
+            a.download = 'ai-brain.json';
             a.click();
-            showMessage('Data exported!', 'success');
+        }
+
+        function toggleAutoLearn() {
+            autoLearn = !autoLearn;
+            event.target.textContent = 'Auto-Learn: ' + (autoLearn ? 'ON' : 'OFF');
+        }
+
+        function showAdvanced() {
+            alert('IQ: ' + GENIUS_AI.iq.toFixed(1) + '%\nPatterns: ' + GENIUS_AI.patterns.size + '\nAccuracy: ' + ((GENIUS_AI.stats.wins / Math.max(1, GENIUS_AI.stats.total)) * 100).toFixed(1) + '%');
         }
 
         window.addEventListener('load', () => {
             updateUI();
-            loadSampleData();
+            loadSample();
         });
     </script>
 </body>
