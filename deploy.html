@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crash Predictor 🎯 - Genius AI</title>
+    <title>Crash Predictor 🎯 - Interactive AI Tuning</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
@@ -31,7 +31,7 @@
         }
 
         .header h1 {
-            font-size: 2.2em;
+            font-size: 2em;
             margin-bottom: 5px;
             text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
         }
@@ -43,7 +43,7 @@
 
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1.5fr 1fr;
+            grid-template-columns: 1fr 1.2fr 1fr 1fr;
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -62,13 +62,6 @@
             font-size: 1.2em;
             border-bottom: 2px solid #4facfe;
             padding-bottom: 8px;
-        }
-
-        .card h3 {
-            color: #4facfe;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            font-size: 1em;
         }
 
         .input-group {
@@ -102,7 +95,7 @@
 
         textarea {
             resize: vertical;
-            min-height: 70px;
+            min-height: 60px;
             font-family: 'Courier New', monospace;
             font-size: 0.85em;
         }
@@ -126,8 +119,9 @@
             box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
         }
 
-        button:active {
-            transform: translateY(0);
+        .btn-success {
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            color: #000;
         }
 
         .btn-primary {
@@ -135,14 +129,15 @@
             color: white;
         }
 
-        .btn-success {
-            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
-            color: #000;
-        }
-
         .btn-secondary {
             background: #2d3e50;
             color: #aaa;
+        }
+
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 0.85em;
+            margin: 4px 0;
         }
 
         .prediction-box {
@@ -173,78 +168,123 @@
         }
 
         .prediction-multiplier {
-            font-size: 2.8em;
+            font-size: 2.5em;
             font-weight: bold;
             margin: 10px 0;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
         .confidence {
-            font-size: 1.2em;
+            font-size: 1.1em;
             opacity: 0.95;
+        }
+
+        .ai-chat {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin: 12px 0;
+        }
+
+        .chat-message {
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .chat-message.ai {
+            background: rgba(79, 172, 254, 0.2);
+            border-left: 3px solid #4facfe;
+            color: #4facfe;
+        }
+
+        .chat-message.user {
+            background: rgba(0, 255, 136, 0.2);
+            border-left: 3px solid #00ff88;
+            color: #00ff88;
+            text-align: right;
+        }
+
+        .chat-input-group {
+            display: flex;
+            gap: 5px;
             margin-top: 10px;
         }
 
-        .real-time-input {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 12px 0;
-            border: 2px solid #ff0000;
+        .chat-input-group input {
+            flex: 1;
+            padding: 8px;
         }
 
-        .real-time-input label {
-            color: #fff;
-            margin-bottom: 8px;
+        .chat-input-group button {
+            flex: 0.3;
+            margin: 0;
+            padding: 8px 12px;
         }
 
-        .real-time-input input {
-            background: #2d0a0a;
-            border-color: #ff4444;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 12px 0;
-        }
-
-        .stat-box {
+        .algorithm-sliders {
             background: rgba(79, 172, 254, 0.1);
-            border-left: 3px solid #4facfe;
             padding: 12px;
-            border-radius: 6px;
-        }
-
-        .stat-label {
-            color: #aaa;
-            font-size: 0.85em;
-            margin-bottom: 5px;
-        }
-
-        .stat-value {
-            color: #00ff88;
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        .memory-list {
-            background: rgba(0, 0, 0, 0.3);
             border-radius: 8px;
-            padding: 10px;
-            max-height: 250px;
-            overflow-y: auto;
+            margin: 12px 0;
+        }
+
+        .slider-group {
             margin: 10px 0;
         }
 
-        .memory-item {
-            background: rgba(79, 172, 254, 0.2);
-            padding: 8px;
-            margin: 5px 0;
-            border-radius: 5px;
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
             font-size: 0.85em;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #4facfe;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #00ff88;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #00ff88;
+            cursor: pointer;
+            border: none;
+        }
+
+        .stats-box {
+            background: rgba(0, 255, 136, 0.1);
             border-left: 3px solid #00ff88;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 8px 0;
+            font-size: 0.9em;
+        }
+
+        .stat-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            color: #00ff88;
         }
 
         .message {
@@ -252,7 +292,6 @@
             border-radius: 6px;
             margin: 10px 0;
             display: none;
-            animation: slideIn 0.3s ease-out;
             font-size: 0.9em;
         }
 
@@ -278,50 +317,8 @@
             color: #4facfe;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        .spinner {
-            border: 2px solid rgba(79, 172, 254, 0.3);
-            border-top: 2px solid #4facfe;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 8px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .chart-container {
-            position: relative;
-            height: 280px;
-            margin-top: 12px;
-        }
-
-        .full-width {
-            grid-column: 1 / -1;
-        }
-
         .prediction-history {
-            max-height: 200px;
+            max-height: 300px;
             overflow-y: auto;
             background: rgba(0, 0, 0, 0.3);
             border-radius: 8px;
@@ -348,28 +345,25 @@
             background: rgba(255, 107, 107, 0.1);
         }
 
-        .ai-status {
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid #00ff88;
-            padding: 10px;
-            border-radius: 8px;
-            margin: 10px 0;
-            font-size: 0.9em;
+        .full-width {
+            grid-column: 1 / -1;
         }
 
-        .ai-status strong {
-            color: #00ff88;
+        .chart-container {
+            position: relative;
+            height: 250px;
+            margin-top: 10px;
         }
 
         @media (max-width: 1200px) {
             .main-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
             }
         }
 
         @media (max-width: 768px) {
             .main-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
 
             .header h1 {
@@ -385,42 +379,37 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🧠 GENIUS CRASH AI - Real-Time Edition</h1>
-            <p>Ultra-Fast Adaptive AI | Instant Learning | WowBet Ready</p>
+            <h1>🧠 Interactive AI Tuning - Talk to the Algorithm</h1>
+            <p>Adjust the algorithm in real-time while we chat about what's working</p>
         </div>
 
         <div class="main-grid">
             <!-- Input Panel -->
             <div class="card">
-                <h2>⚡ Quick Input</h2>
+                <h2>📊 Data</h2>
                 
                 <div class="input-group">
-                    <label>Crash History (Last 20+)</label>
+                    <label>Crash History</label>
                     <textarea id="crashInput" placeholder="1.5,2.3,1.8,3.2,2.1"></textarea>
                 </div>
 
-                <button class="btn-secondary" onclick="loadSample()" style="font-size: 0.85em; padding: 8px;">📥 Sample</button>
+                <button class="btn-secondary btn-small" onclick="loadSample()">📥 Sample</button>
                 <button class="btn-success" onclick="predictNow()">🔮 PREDICT</button>
-                <button class="btn-primary" onclick="clearAll()" style="font-size: 0.85em; padding: 8px;">Clear</button>
+                <button class="btn-primary btn-small" onclick="clearAll()">Clear</button>
 
-                <h3>🧠 AI Brain</h3>
-                <div class="ai-status">
-                    <div><strong>IQ Level:</strong> <span id="iqLevel">0%</span></div>
-                    <div><strong>Patterns Learned:</strong> <span id="patternsLearned">0</span></div>
-                    <div><strong>Accuracy:</strong> <span id="aiAccuracy">0%</span></div>
-                    <div><strong>Speed:</strong> <span id="aiSpeed">Instant</span></div>
+                <h3 style="margin-top: 15px; font-size: 1em; color: #4facfe;">🎮 Real Game</h3>
+                <div class="input-group">
+                    <label>Actual Crash</label>
+                    <input type="number" id="actualCrash" step="0.01" min="1.01" placeholder="What really happened?">
                 </div>
+                <button class="btn-success btn-small" onclick="learnCorrection()">Learn!</button>
 
-                <h3>📚 Memory Bank</h3>
-                <div id="memoryList" class="memory-list"></div>
-
-                <button class="btn-secondary" onclick="exportAI()" style="font-size: 0.85em; padding: 8px;">💾 Export</button>
-                <button class="btn-secondary" onclick="resetAI()" style="font-size: 0.85em; padding: 8px;">🔄 Reset</button>
+                <div id="message" class="message"></div>
             </div>
 
-            <!-- Live Prediction Panel -->
+            <!-- Prediction Panel -->
             <div class="card">
-                <h2>🎯 Live Prediction</h2>
+                <h2>🎯 Prediction</h2>
 
                 <div id="predictionDisplay" class="prediction-box">
                     <div>NEXT CRASH</div>
@@ -428,62 +417,82 @@
                     <div class="confidence" id="confValue">Confidence: 0%</div>
                 </div>
 
-                <div id="loading" class="loading">
-                    <div class="spinner"></div>
-                    <p>AI Computing...</p>
+                <div class="stats-box">
+                    <div class="stat-line">
+                        <span>Predictions Made:</span>
+                        <strong id="totalPred">0</strong>
+                    </div>
+                    <div class="stat-line">
+                        <span>Accuracy:</span>
+                        <strong id="accuracy">0%</strong>
+                    </div>
+                    <div class="stat-line">
+                        <span>Patterns Learned:</span>
+                        <strong id="patternsCount">0</strong>
+                    </div>
                 </div>
 
-                <div class="real-time-input" id="rtInput" style="display: none;">
-                    <label>⚠️ REAL GAME - What was the actual crash?</label>
-                    <input type="number" id="actualCrash" step="0.01" min="1.01" placeholder="Enter actual value">
-                    <button class="btn-success" onclick="learnCorrection()" style="margin: 8px 0;">✓ YES RIGHT!</button>
-                    <button class="btn-primary" onclick="learnCorrection()" style="margin: 8px 0;">✗ WRONG</button>
-                </div>
-
-                <div id="message" class="message"></div>
-
-                <h3>⚡ Recent Predictions</h3>
+                <h3 style="font-size: 1em;">Recent Predictions</h3>
                 <div id="predHistory" class="prediction-history"></div>
             </div>
 
-            <!-- Analytics Panel -->
+            <!-- Algorithm Tuning Panel -->
             <div class="card">
-                <h2>📊 Analytics</h2>
+                <h2>⚙️ Algorithm</h2>
 
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <div class="stat-label">Total Learned</div>
-                        <div class="stat-value" id="totalLearned">0</div>
+                <div class="algorithm-sliders">
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span>Trend Weight</span>
+                            <span id="trendVal">0.5</span>
+                        </div>
+                        <input type="range" id="trendSlider" min="0" max="1" step="0.1" value="0.5" oninput="updateAlgo()">
                     </div>
-                    <div class="stat-box">
-                        <div class="stat-label">Wins</div>
-                        <div class="stat-value" id="wins">0</div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span>Volatility</span>
+                            <span id="volVal">0.5</span>
+                        </div>
+                        <input type="range" id="volSlider" min="0" max="1" step="0.1" value="0.5" oninput="updateAlgo()">
                     </div>
-                    <div class="stat-box">
-                        <div class="stat-label">Losses</div>
-                        <div class="stat-value" id="losses">0</div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span>Momentum</span>
+                            <span id="momVal">0.5</span>
+                        </div>
+                        <input type="range" id="momSlider" min="0" max="1" step="0.1" value="0.5" oninput="updateAlgo()">
                     </div>
-                    <div class="stat-box">
-                        <div class="stat-label">Win Rate</div>
-                        <div class="stat-value" id="winRate">0%</div>
+
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span>Learning Rate</span>
+                            <span id="lrVal">0.5</span>
+                        </div>
+                        <input type="range" id="lrSlider" min="0" max="1" step="0.1" value="0.5" oninput="updateAlgo()">
                     </div>
                 </div>
 
-                <h3>✓ Correct Patterns</h3>
-                <div id="correctList" class="memory-list"></div>
+                <button class="btn-secondary btn-small" onclick="resetAlgo()">Reset Algorithm</button>
+            </div>
 
-                <h3>❌ Learn From Fails</h3>
-                <div id="wrongList" class="memory-list"></div>
+            <!-- AI Chat Panel -->
+            <div class="card">
+                <h2>💬 AI Coach</h2>
 
-                <h3>⚙️ Settings</h3>
-                <button class="btn-secondary" onclick="toggleAutoLearn()" style="font-size: 0.85em; padding: 8px;">Auto-Learn: ON</button>
-                <button class="btn-secondary" onclick="showAdvanced()" style="font-size: 0.85em; padding: 8px;">Advanced</button>
+                <div id="aiChat" class="ai-chat"></div>
+
+                <div class="chat-input-group">
+                    <input type="text" id="chatInput" placeholder="Tell me what's wrong..." onkeypress="handleChat(event)">
+                    <button class="btn-success btn-small" onclick="sendChat()" style="margin: 0;">Send</button>
+                </div>
             </div>
         </div>
 
         <!-- Chart -->
         <div class="card full-width">
-            <h2>📈 Crash Pattern Chart</h2>
+            <h2>📈 Crash Pattern</h2>
             <div class="chart-container">
                 <canvas id="crashChart"></canvas>
             </div>
@@ -493,214 +502,133 @@
     <script>
         let chart = null;
         let currentPred = null;
-        let autoLearn = true;
+        let chatHistory = [];
 
-        // GENIUS AI ENGINE
-        const GENIUS_AI = {
-            patterns: new Map(),
+        // Algorithm parameters
+        let algo = {
+            trend: 0.5,
+            volatility: 0.5,
+            momentum: 0.5,
+            learningRate: 0.5,
+            learned: [],
             predictions: [],
-            stats: { wins: 0, losses: 0, total: 0 },
-            iq: 0,
-
-            // Advanced Pattern Recognition
-            analyzePattern(crashes) {
-                const last5 = crashes.slice(-5);
-                const key = last5.map(c => c.toFixed(2)).join(',');
-                
-                // Multi-level analysis
-                const avg = last5.reduce((a, b) => a + b) / last5.length;
-                const trend = this.calculateTrend(last5);
-                const volatility = this.calculateVolatility(last5);
-                const momentum = this.calculateMomentum(last5);
-                const fractal = this.calculateFractal(crashes);
-                
-                return {
-                    key,
-                    avg,
-                    trend,
-                    volatility,
-                    momentum,
-                    fractal,
-                    hash: this.hashPattern(last5)
-                };
-            },
-
-            calculateTrend(arr) {
-                const n = arr.length;
-                let sum_x = 0, sum_y = 0, sum_xy = 0, sum_x2 = 0;
-                for (let i = 0; i < n; i++) {
-                    sum_x += i;
-                    sum_y += arr[i];
-                    sum_xy += i * arr[i];
-                    sum_x2 += i * i;
-                }
-                return (n * sum_xy - sum_x * sum_y) / (n * sum_x2 - sum_x * sum_x);
-            },
-
-            calculateVolatility(arr) {
-                const avg = arr.reduce((a, b) => a + b) / arr.length;
-                const variance = arr.reduce((sum, val) => sum + Math.pow(val - avg, 2), 0) / arr.length;
-                return Math.sqrt(variance);
-            },
-
-            calculateMomentum(arr) {
-                return arr[arr.length - 1] - arr[0];
-            },
-
-            calculateFractal(crashes) {
-                if (crashes.length < 10) return 0;
-                const segments = [crashes.slice(-5), crashes.slice(-10, -5)];
-                let similarity = 0;
-                for (let i = 0; i < 5; i++) {
-                    similarity += Math.abs(segments[0][i] - segments[1][i]);
-                }
-                return 1 / (1 + similarity / 5);
-            },
-
-            hashPattern(arr) {
-                return arr.reduce((h, v) => h + v.toFixed(2).length, 0);
-            },
-
-            // Smart Prediction
-            predict(crashes) {
-                const pattern = this.analyzePattern(crashes);
-                let prediction = pattern.avg;
-
-                // Apply learned corrections
-                let corrections = 0;
-                for (let [key, data] of this.patterns) {
-                    if (data.hash === pattern.hash && data.actual) {
-                        prediction += (data.actual - data.avg) * 0.4;
-                        corrections++;
-                    }
-                }
-
-                // Apply trend
-                prediction += pattern.trend * 0.5;
-
-                // Apply momentum
-                if (pattern.momentum > 0) {
-                    prediction += pattern.momentum * 0.3;
-                }
-
-                // Apply fractal analysis
-                prediction += pattern.fractal * 0.2;
-
-                // Adjust for volatility
-                if (pattern.volatility < 0.5) {
-                    prediction = (prediction + pattern.avg) / 2;
-                }
-
-                prediction = Math.max(1.01, Math.min(9.99, prediction));
-
-                // Calculate confidence
-                let confidence = 50;
-                confidence += corrections * 10;
-                confidence += Math.min(40, this.stats.total * 2);
-                confidence = Math.min(99, confidence);
-
-                return {
-                    value: parseFloat(prediction.toFixed(2)),
-                    confidence: Math.max(55, confidence),
-                    patterns: corrections
-                };
-            },
-
-            // Learn from corrections
-            learn(crashes, actual, isCorrect) {
-                const pattern = this.analyzePattern(crashes);
-                
-                this.patterns.set(pattern.key, {
-                    ...pattern,
-                    actual: actual,
-                    isCorrect: isCorrect,
-                    timestamp: Date.now()
-                });
-
-                this.predictions.push({
-                    predicted: pattern.avg,
-                    actual: actual,
-                    isCorrect: isCorrect
-                });
-
-                if (isCorrect) {
-                    this.stats.wins++;
-                } else {
-                    this.stats.losses++;
-                }
-                this.stats.total++;
-
-                // Calculate IQ (0-100)
-                this.iq = Math.min(99, (this.stats.wins / Math.max(1, this.stats.total)) * 100);
-
-                this.save();
-            },
-
-            save() {
-                const data = {
-                    patterns: Array.from(this.patterns.entries()),
-                    predictions: this.predictions,
-                    stats: this.stats,
-                    iq: this.iq
-                };
-                localStorage.setItem('geniusAI', JSON.stringify(data));
-            },
-
-            load() {
-                const data = localStorage.getItem('geniusAI');
-                if (data) {
-                    const parsed = JSON.parse(data);
-                    this.patterns = new Map(parsed.patterns);
-                    this.predictions = parsed.predictions;
-                    this.stats = parsed.stats;
-                    this.iq = parsed.iq;
-                }
-            }
+            stats: { correct: 0, total: 0 }
         };
 
-        GENIUS_AI.load();
-
-        function parseCrashes(input) {
-            return input.split(',').map(x => parseFloat(x.trim())).filter(x => !isNaN(x) && x > 0);
+        // Load from localStorage
+        function loadAlgo() {
+            const saved = localStorage.getItem('algoTuning');
+            if (saved) algo = JSON.parse(saved);
+            updateSliders();
         }
 
-        function getCrashes() {
-            const crashes = parseCrashes(document.getElementById('crashInput').value);
-            if (crashes.length < 5) {
-                showMsg('Need minimum 5 crashes', 'error');
-                return null;
+        function saveAlgo() {
+            localStorage.setItem('algoTuning', JSON.stringify(algo));
+        }
+
+        function updateSliders() {
+            document.getElementById('trendSlider').value = algo.trend;
+            document.getElementById('volSlider').value = algo.volatility;
+            document.getElementById('momSlider').value = algo.momentum;
+            document.getElementById('lrSlider').value = algo.learningRate;
+            document.getElementById('trendVal').textContent = algo.trend.toFixed(1);
+            document.getElementById('volVal').textContent = algo.volatility.toFixed(1);
+            document.getElementById('momVal').textContent = algo.momentum.toFixed(1);
+            document.getElementById('lrVal').textContent = algo.learningRate.toFixed(1);
+        }
+
+        function updateAlgo() {
+            algo.trend = parseFloat(document.getElementById('trendSlider').value);
+            algo.volatility = parseFloat(document.getElementById('volSlider').value);
+            algo.momentum = parseFloat(document.getElementById('momSlider').value);
+            algo.learningRate = parseFloat(document.getElementById('lrSlider').value);
+
+            document.getElementById('trendVal').textContent = algo.trend.toFixed(1);
+            document.getElementById('volVal').textContent = algo.volatility.toFixed(1);
+            document.getElementById('momVal').textContent = algo.momentum.toFixed(1);
+            document.getElementById('lrVal').textContent = algo.learningRate.toFixed(1);
+
+            saveAlgo();
+            aiChat('Algorithm updated! Trend: ' + algo.trend.toFixed(1) + ', Vol: ' + algo.volatility.toFixed(1));
+        }
+
+        function resetAlgo() {
+            algo = {
+                trend: 0.5,
+                volatility: 0.5,
+                momentum: 0.5,
+                learningRate: 0.5,
+                learned: algo.learned,
+                predictions: algo.predictions,
+                stats: algo.stats
+            };
+            saveAlgo();
+            updateSliders();
+            aiChat('Algorithm reset to defaults!');
+        }
+
+        function predict(crashes) {
+            const last5 = crashes.slice(-5);
+            const avg = last5.reduce((a, b) => a + b) / last5.length;
+            
+            // Calculate trend
+            const trend = (last5[last5.length - 1] - last5[0]) / last5.length;
+            
+            // Calculate volatility
+            const variance = last5.reduce((sum, val) => sum + Math.pow(val - avg, 2), 0) / last5.length;
+            const vol = Math.sqrt(variance);
+            
+            // Calculate momentum
+            const momentum = last5[last5.length - 1] - last5[0];
+
+            // Apply learned corrections
+            let correction = 0;
+            for (let learned of algo.learned) {
+                correction += (learned.actual - learned.predicted) * algo.learningRate;
             }
-            return crashes;
-        }
 
-        function showMsg(text, type = 'success') {
-            const msg = document.getElementById('message');
-            msg.textContent = text;
-            msg.className = `message show ${type}`;
-            setTimeout(() => msg.classList.remove('show'), 3000);
+            // Build prediction
+            let prediction = avg;
+            prediction += trend * algo.trend;
+            prediction += (momentum / 5) * algo.momentum;
+            if (vol > 0.8) prediction -= vol * algo.volatility;
+
+            prediction += correction;
+            prediction = Math.max(1.01, Math.min(9.99, prediction));
+
+            // Calculate confidence
+            let confidence = 50;
+            confidence += Math.min(30, algo.learned.length * 3);
+            confidence += Math.abs(algo.stats.correct / Math.max(1, algo.stats.total)) * 20;
+            confidence = Math.min(98, confidence);
+
+            return {
+                value: parseFloat(prediction.toFixed(2)),
+                confidence: Math.max(50, confidence),
+                trend: trend,
+                vol: vol,
+                momentum: momentum
+            };
         }
 
         function predictNow() {
-            const crashes = getCrashes();
-            if (!crashes) return;
+            const crashes = document.getElementById('crashInput').value
+                .split(',').map(x => parseFloat(x.trim())).filter(x => !isNaN(x) && x > 0);
+            
+            if (crashes.length < 5) {
+                showMsg('Need 5+ crashes', 'error');
+                return;
+            }
 
-            document.getElementById('loading').classList.add('show');
-            document.getElementById('rtInput').style.display = 'none';
+            const pred = predict(crashes);
+            currentPred = { crashes, predicted: pred.value, confidence: pred.confidence };
 
-            // Ultra-fast prediction
-            setTimeout(() => {
-                const pred = GENIUS_AI.predict(crashes);
-                currentPred = { crashes, predicted: pred.value, confidence: pred.confidence };
+            document.getElementById('predValue').textContent = pred.value + 'x';
+            document.getElementById('confValue').textContent = `Confidence: ${pred.confidence.toFixed(0)}%`;
+            document.getElementById('predictionDisplay').classList.add('show');
 
-                document.getElementById('predValue').textContent = pred.value + 'x';
-                document.getElementById('confValue').textContent = `Confidence: ${pred.confidence}%`;
-                document.getElementById('predictionDisplay').classList.add('show');
-                document.getElementById('rtInput').style.display = 'block';
-                document.getElementById('actualCrash').value = '';
-                document.getElementById('loading').classList.remove('show');
-
-                updateUI();
-            }, 50);
+            aiChat(`Predicted ${pred.value}x with ${pred.confidence.toFixed(0)}% confidence. Trend: ${pred.trend.toFixed(2)}, Vol: ${pred.vol.toFixed(2)}`);
+            updateUI();
         }
 
         function learnCorrection() {
@@ -710,113 +638,111 @@
                 return;
             }
 
-            const isCorrect = Math.abs(actual - currentPred.predicted) < (currentPred.predicted * 0.08);
-            GENIUS_AI.learn(currentPred.crashes, actual, isCorrect);
+            const isCorrect = Math.abs(actual - currentPred.predicted) < (currentPred.predicted * 0.1);
 
-            showMsg(`✓ AI LEARNED! ${isCorrect ? 'CORRECT!' : 'Corrected: ' + actual + 'x'}`, isCorrect ? 'success' : 'info');
-            document.getElementById('rtInput').style.display = 'none';
+            algo.learned.push({
+                predicted: currentPred.predicted,
+                actual: actual,
+                isCorrect: isCorrect
+            });
+
+            algo.predictions.push({ predicted: currentPred.predicted, actual: actual, isCorrect: isCorrect });
+
+            if (isCorrect) algo.stats.correct++;
+            algo.stats.total++;
+
+            saveAlgo();
+            showMsg(`✓ Learned! Pred: ${currentPred.predicted}x → Real: ${actual}x`, 'success');
+
+            const feedback = isCorrect 
+                ? `Great! I was RIGHT! ${currentPred.predicted}x = ${actual}x`
+                : `I was OFF! I said ${currentPred.predicted}x but it was ${actual}x. Let me adjust...`;
+            
+            aiChat(feedback);
+            document.getElementById('actualCrash').value = '';
             updateUI();
         }
 
         function updateUI() {
-            // AI Stats
-            document.getElementById('iqLevel').textContent = GENIUS_AI.iq.toFixed(1) + '%';
-            document.getElementById('patternsLearned').textContent = GENIUS_AI.patterns.size;
-            
-            const accuracy = GENIUS_AI.stats.total > 0 
-                ? ((GENIUS_AI.stats.wins / GENIUS_AI.stats.total) * 100).toFixed(1)
-                : 0;
-            document.getElementById('aiAccuracy').textContent = accuracy + '%';
+            document.getElementById('totalPred').textContent = algo.predictions.length;
+            const acc = algo.stats.total > 0 ? ((algo.stats.correct / algo.stats.total) * 100).toFixed(1) : 0;
+            document.getElementById('accuracy').textContent = acc + '%';
+            document.getElementById('patternsCount').textContent = algo.learned.length;
 
-            // Analytics
-            document.getElementById('totalLearned').textContent = GENIUS_AI.patterns.size;
-            document.getElementById('wins').textContent = GENIUS_AI.stats.wins;
-            document.getElementById('losses').textContent = GENIUS_AI.stats.losses;
-            document.getElementById('winRate').textContent = accuracy + '%';
-
-            // Memory
-            if (GENIUS_AI.patterns.size > 0) {
-                const patterns = Array.from(GENIUS_AI.patterns.values()).slice(-10);
-                document.getElementById('memoryList').innerHTML = patterns
-                    .map(p => `<div class="memory-item"><strong>${p.isCorrect ? '✓' : '✗'} ${p.actual.toFixed(2)}x</strong></div>`)
-                    .join('');
-            }
-
-            // Correct predictions
-            const correct = GENIUS_AI.predictions.filter(p => p.isCorrect);
-            if (correct.length > 0) {
-                document.getElementById('correctList').innerHTML = correct.slice(-5)
-                    .map(p => `<div class="memory-item">✓ ${p.actual.toFixed(2)}x</div>`)
-                    .join('');
-            }
-
-            // Wrong predictions
-            const wrong = GENIUS_AI.predictions.filter(p => !p.isCorrect);
-            if (wrong.length > 0) {
-                document.getElementById('wrongList').innerHTML = wrong.slice(-5)
-                    .map(p => `<div class="memory-item">Pred: ${p.predicted.toFixed(2)}x → Real: ${p.actual.toFixed(2)}x</div>`)
-                    .join('');
-            }
-
-            // History
-            document.getElementById('predHistory').innerHTML = GENIUS_AI.predictions.slice(-8).reverse()
+            document.getElementById('predHistory').innerHTML = algo.predictions.slice(-8).reverse()
                 .map(p => `<div class="history-item ${p.isCorrect ? 'correct' : 'wrong'}">
                     P:${p.predicted.toFixed(2)}x A:${p.actual.toFixed(2)}x ${p.isCorrect ? '✓' : '✗'}
-                </div>`)
-                .join('');
+                </div>`).join('');
+        }
+
+        function aiChat(message) {
+            chatHistory.push({ role: 'ai', text: message });
+            renderChat();
+        }
+
+        function sendChat() {
+            const input = document.getElementById('chatInput').value;
+            if (!input.trim()) return;
+
+            chatHistory.push({ role: 'user', text: input });
+            document.getElementById('chatInput').value = '';
+
+            // AI responses based on input
+            const responses = {
+                'too high': 'I see, I\'m overestimating. Let me DECREASE the Trend and Momentum sliders.',
+                'too low': 'Got it, I\'m underestimating. Let me INCREASE the Trend and Momentum sliders.',
+                'way off': 'I need a major adjustment. Reducing all parameters...',
+                'pretty close': 'Getting there! Let me fine-tune with more learning rate.',
+                'not learning': 'Maybe I need HIGHER learning rate. Let me increase it.',
+                'default': 'Tell me: predictions too high/low? Not learning enough? What needs fixing?'
+            };
+
+            let response = responses.default;
+            const lower = input.toLowerCase();
+            for (let key in responses) {
+                if (lower.includes(key)) {
+                    response = responses[key];
+                    break;
+                }
+            }
+
+            chatHistory.push({ role: 'ai', text: response });
+            renderChat();
+        }
+
+        function handleChat(event) {
+            if (event.key === 'Enter') sendChat();
+        }
+
+        function renderChat() {
+            const chat = document.getElementById('aiChat');
+            chat.innerHTML = chatHistory.map(msg => 
+                `<div class="chat-message ${msg.role}">${msg.text}</div>`
+            ).join('');
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function showMsg(text, type = 'success') {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.className = `message show ${type}`;
+            setTimeout(() => msg.classList.remove('show'), 3000);
         }
 
         function loadSample() {
-            const sample = [1.5, 2.3, 1.8, 3.2, 2.1, 1.9, 2.8, 1.6, 2.5, 3.1, 2.2, 1.7, 2.9, 2.0, 1.4, 3.5, 2.4, 1.9, 2.6, 2.8];
-            document.getElementById('crashInput').value = sample.join(',');
-            showMsg('Sample loaded', 'success');
+            document.getElementById('crashInput').value = [1.5, 2.3, 1.8, 3.2, 2.1, 1.9, 2.8, 1.6, 2.5, 3.1, 2.2, 1.7, 2.9, 2.0, 1.4].join(',');
         }
 
         function clearAll() {
             document.getElementById('crashInput').value = '';
             document.getElementById('predictionDisplay').classList.remove('show');
-            document.getElementById('rtInput').style.display = 'none';
-        }
-
-        function resetAI() {
-            if (confirm('Reset all AI learning?')) {
-                GENIUS_AI.patterns.clear();
-                GENIUS_AI.predictions = [];
-                GENIUS_AI.stats = { wins: 0, losses: 0, total: 0 };
-                GENIUS_AI.iq = 0;
-                GENIUS_AI.save();
-                updateUI();
-                showMsg('AI Reset', 'success');
-            }
-        }
-
-        function exportAI() {
-            const data = JSON.stringify({
-                patterns: Array.from(GENIUS_AI.patterns.entries()),
-                predictions: GENIUS_AI.predictions,
-                stats: GENIUS_AI.stats,
-                iq: GENIUS_AI.iq
-            }, null, 2);
-            const blob = new Blob([data], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'ai-brain.json';
-            a.click();
-        }
-
-        function toggleAutoLearn() {
-            autoLearn = !autoLearn;
-            event.target.textContent = 'Auto-Learn: ' + (autoLearn ? 'ON' : 'OFF');
-        }
-
-        function showAdvanced() {
-            alert('IQ: ' + GENIUS_AI.iq.toFixed(1) + '%\nPatterns: ' + GENIUS_AI.patterns.size + '\nAccuracy: ' + ((GENIUS_AI.stats.wins / Math.max(1, GENIUS_AI.stats.total)) * 100).toFixed(1) + '%');
         }
 
         window.addEventListener('load', () => {
-            updateUI();
+            loadAlgo();
             loadSample();
+            aiChat('Hi! I\'m your AI coach. Tell me if predictions are too HIGH/LOW and I\'ll adjust the algorithm!');
+            updateUI();
         });
     </script>
 </body>
