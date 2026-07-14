@@ -1,74 +1,40 @@
 # Crash Predictor 🎯
 
-A machine learning-based tool that predicts the next crash point in crash games based on historical crash data.
+A machine learning-based crash game predictor. Just open the link and start predicting!
+
+## 🚀 Quick Start
+
+**[👉 CLICK HERE TO USE THE APP 👈](https://ahmedzaky591.github.io/crash-predictor/)**
+
+No installation needed. Works in any browser!
 
 ## Features
 
-- 🔮 **Predict next crash multiplier** from historical data
-- 📊 **Pattern analysis** using time-series forecasting
-- 🎨 **Web UI** for easy testing
-- 📈 **Training on historical crashes** to improve predictions
-- ⚡ **Fast predictions** with scikit-learn
+- 🔮 Predict next crash multiplier
+- 📊 Analyze crash patterns
+- 📈 Batch predictions
+- 📉 Live charts
+- ⚡ No backend required
 
-## How it Works
+## How It Works
 
-1. **Input**: Provide historical crash multipliers (e.g., `[1.5, 2.3, 1.8, 3.2, 2.1, ...]`)
-2. **Process**: The ML model analyzes patterns and trends
-3. **Output**: Prediction for the next crash multiplier with confidence score
+1. Open the link above
+2. Load sample data or paste your own crashes
+3. Click "Predict Next" to get predictions
+4. View confidence scores and statistics
 
-## Installation
+## Files
 
-```bash
-git clone https://github.com/ahmedzaky591/crash-predictor.git
-cd crash-predictor
-pip install -r requirements.txt
-```
-
-## Usage
-
-### Python API
-
-```python
-from predictor import CrashPredictor
-
-# Initialize predictor
-predictor = CrashPredictor()
-
-# Historical crash data
-crashes = [1.5, 2.3, 1.8, 3.2, 2.1, 1.9, 2.8, 1.6, 2.5, 3.1]
-
-# Get prediction
-prediction = predictor.predict(crashes)
-print(f"Next crash at: {prediction['multiplier']:.2f}x")
-print(f"Confidence: {prediction['confidence']:.2%}")
-```
-
-### Web Interface
-
-```bash
-python app.py
-# Open http://localhost:5000
-```
-
-## Project Structure
-
-```
-crash-predictor/
-├── predictor.py          # Core prediction engine
-├── app.py                # Flask web app
-├── requirements.txt      # Dependencies
-├── templates/
-│   └── index.html        # Web UI
-└── sample_crashes.json   # Sample training data
-```
+- `index.html` - The complete standalone app
+- `app.py` - Python backend (optional)
+- `predictor.py` - ML engine (optional)
 
 ## Technologies
 
-- **scikit-learn**: Machine learning
-- **numpy/pandas**: Data processing
-- **Flask**: Web framework
-- **Chart.js**: Data visualization
+- Pure HTML/CSS/JavaScript
+- Chart.js for visualization
+- ML pattern analysis algorithm
 
-## License
+---
 
-MIT
+**Made with ❤️ by Ahmed Zaky**
