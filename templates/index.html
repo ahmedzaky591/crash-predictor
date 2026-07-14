@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crash Predictor 🎯</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: 'Courier New', monospace;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .secondary-btn {
+            background: #f0f0f0;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .secondary-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .prediction-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .prediction-multiplier {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .confidence {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            color: #667eea;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        .batch-predictions {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .batch-predictions h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .prediction-item {
+            display: inline-block;
+            background: white;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+            font-weight: 500;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #667eea;
+            margin: 15px 0;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .prediction-multiplier {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Crash Predictor</h1>
+            <p>Predict the next crash multiplier using machine learning</p>
+        </div>
+
+        <div class="main-grid">
+            <!-- Input Panel -->
+            <div class="card">
+                <h2>📊 Input Data</h2>
+                
+                <div class="input-group">
+                    <label>Crash History (comma-separated)</label>
+                    <textarea id="crashInput" placeholder="e.g., 1.5, 2.3, 1.8, 3.2, 2.1"></textarea>
+                </div>
+
+                <button onclick="loadSampleData()">📥 Load Sample Data</button>
+                <button class="secondary-btn" onclick="clearInput()">Clear</button>
+
+                <div id="message" class="message"></div>
+                <div id="loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Processing...</p>
+                </div>
+
+                <button onclick="trainModel()" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); margin-top: 15px;">🚀 Train Model</button>
+                <button onclick="predict()" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%); margin-top: 10px;">🔮 Predict Next</button>
+                <button onclick="batchPredict()" style="background: linear-gradient(135deg, #ffa502 0%, #ffb74d 100%); margin-top: 10px;">📈 Batch Predict (5)</button>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="card">
+                <h2>🎯 Results</h2>
+
+                <div id="prediction" style="display: none;">
+                    <div class="prediction-box">
+                        <div>Next Crash Multiplier</div>
+                        <div class="prediction-multiplier" id="predictedValue">0.00x</div>
+                        <div class="confidence" id="confidenceValue">Confidence: 0%</div>
+                    </div>
+                </div>
+
+                <div id="statsContainer" style="display: none;">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">Average</div>
+                            <div class="stat-value" id="avgStat">0.00</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Total Crashes</div>
+                            <div class="stat-value" id="countStat">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Min</div>
+                            <div class="stat-value" id="minStat">0.00</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Max</div>
+                            <div class="stat-value" id="maxStat">0.00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="batchContainer" style="display: none; margin-top: 20px;">
+                    <div class="batch-predictions">
+                        <h3>📊 Next 5 Predictions</h3>
+                        <div id="batchList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="card">
+            <h2>📈 Crash History Chart</h2>
+            <div class="chart-container">
+                <canvas id="crashChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let chart = null;
+
+        function showMessage(text, type = 'success') {
+            const msgDiv = document.getElementById('message');
+            msgDiv.textContent = text;
+            msgDiv.className = `message show ${type}`;
+            setTimeout(() => msgDiv.classList.remove('show'), 5000);
+        }
+
+        function showLoading(show = true) {
+            document.getElementById('loading').classList.toggle('show', show);
+        }
+
+        function parseCrashData(input) {
+            return input
+                .split(',')
+                .map(x => parseFloat(x.trim()))
+                .filter(x => !isNaN(x) && x > 0);
+        }
+
+        function getCrashes() {
+            const input = document.getElementById('crashInput').value;
+            const crashes = parseCrashData(input);
+            if (crashes.length === 0) {
+                showMessage('Invalid crash data. Enter comma-separated numbers.', 'error');
+                return null;
+            }
+            return crashes;
+        }
+
+        function updateChart(crashes) {
+            const ctx = document.getElementById('crashChart').getContext('2d');
+            
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: crashes.map((_, i) => `Crash ${i + 1}`),
+                    datasets: [{
+                        label: 'Crash Multiplier',
+                        data: crashes,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#667eea',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: { color: '#333' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: { color: '#666' },
+                            grid: { color: '#e0e0e0' }
+                        },
+                        x: {
+                            ticks: { color: '#666' },
+                            grid: { color: '#e0e0e0' }
+                        }
+                    }
+                }
+            });
+        }
+
+        async function trainModel() {
+            const crashes = getCrashes();
+            if (!crashes) return;
+
+            if (crashes.length < 10) {
+                showMessage('Need at least 10 crash data points to train', 'error');
+                return;
+            }
+
+            showLoading(true);
+
+            try {
+                const response = await fetch('/api/train', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ crashes })
+                });
+
+                const data = await response.json();
+                showLoading(false);
+
+                if (data.success) {
+                    showMessage(`✓ ${data.message}`, 'success');
+                    getStats(crashes);
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                showLoading(false);
+                showMessage('Error: ' + error.message, 'error');
+            }
+        }
+
+        async function predict() {
+            const crashes = getCrashes();
+            if (!crashes) return;
+
+            if (crashes.length < 5) {
+                showMessage('Need at least 5 crash data points', 'error');
+                return;
+            }
+
+            showLoading(true);
+
+            try {
+                const response = await fetch('/api/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ crashes })
+                });
+
+                const data = await response.json();
+                showLoading(false);
+
+                if (data.success) {
+                    document.getElementById('prediction').style.display = 'block';
+                    document.getElementById('predictedValue').textContent = data.data.multiplier + 'x';
+                    document.getElementById('confidenceValue').textContent = 'Confidence: ' + data.data.confidence;
+                    updateChart(crashes);
+                    getStats(crashes);
+                    showMessage('✓ Prediction completed', 'success');
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                showLoading(false);
+                showMessage('Error: ' + error.message, 'error');
+            }
+        }
+
+        async function batchPredict() {
+            const crashes = getCrashes();
+            if (!crashes) return;
+
+            if (crashes.length < 5) {
+                showMessage('Need at least 5 crash data points', 'error');
+                return;
+            }
+
+            showLoading(true);
+
+            try {
+                const response = await fetch('/api/batch-predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ crashes, num_predictions: 5 })
+                });
+
+                const data = await response.json();
+                showLoading(false);
+
+                if (data.success) {
+                    const batchList = document.getElementById('batchList');
+                    batchList.innerHTML = data.predictions
+                        .map((pred, i) => `<div class="prediction-item">Crash ${i + 1}: ${pred}x</div>`)
+                        .join('');
+                    document.getElementById('batchContainer').style.display = 'block';
+                    showMessage('✓ Batch predictions generated', 'success');
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                showLoading(false);
+                showMessage('Error: ' + error.message, 'error');
+            }
+        }
+
+        async function getStats(crashes) {
+            try {
+                const response = await fetch('/api/stats', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ crashes })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const stats = data.stats;
+                    document.getElementById('statsContainer').style.display = 'block';
+                    document.getElementById('avgStat').textContent = stats.average.toFixed(2);
+                    document.getElementById('countStat').textContent = stats.total_crashes;
+                    document.getElementById('minStat').textContent = stats.min.toFixed(2);
+                    document.getElementById('maxStat').textContent = stats.max.toFixed(2);
+                }
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        }
+
+        async function loadSampleData() {
+            showLoading(true);
+
+            try {
+                const response = await fetch('/api/sample-data');
+                const data = await response.json();
+                showLoading(false);
+
+                if (data.success) {
+                    document.getElementById('crashInput').value = data.crashes.join(', ');
+                    updateChart(data.crashes);
+                    getStats(data.crashes);
+                    showMessage(`✓ Loaded ${data.count} sample crashes`, 'success');
+                } else {
+                    showMessage('Error loading sample data', 'error');
+                }
+            } catch (error) {
+                showLoading(false);
+                showMessage('Error: ' + error.message, 'error');
+            }
+        }
+
+        function clearInput() {
+            document.getElementById('crashInput').value = '';
+            document.getElementById('prediction').style.display = 'none';
+            document.getElementById('statsContainer').style.display = 'none';
+            document.getElementById('batchContainer').style.display = 'none';
+            if (chart) chart.destroy();
+        }
+
+        // Load sample data on page load
+        window.addEventListener('load', loadSampleData);
+    </script>
+</body>
+</html>
